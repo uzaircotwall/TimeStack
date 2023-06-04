@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/miEntries"
+        android:title="Entries"
+        android:icon="@drawable/ic_entries"/>
+
+    <item
+        android:id="@+id/miCreateClient"
+        android:title="Clients"
+        android:icon="@drawable/ic_client"/>
+
+    <item
+        android:id="@+id/miGraph"
+        android:title="Stats"
+        android:icon="@drawable/ic_graph"/>
+</menu>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_background_main_application_background"
+    android:weightSum="10"
+    android:orientation="vertical"
+    tools:context=".TimeSheetClientFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_gravity="top"
+        android:height="40dp"
+        android:paddingVertical="10dp"
+        android:text="Clients"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="34sp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/View_holder_color"
+        android:orientation="horizontal" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/client_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:layout_gravity="fill_vertical"
+        android:layout_marginVertical="10dp"
+        android:layout_marginTop="8dp"
+        app:backgroundTint="@null"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/client_viewholder_layout" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnNewClient"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/view_background_timesheet_entry_button"
+        android:backgroundTint="@null"
+        android:drawableStart="@drawable/ic_new_timesheet_entry"
+        android:gravity="center"
+        android:paddingHorizontal="100dp"
+        android:text="Add New Client"
+        android:textAllCaps="false"
+        android:textColor="@color/button_color"
+        android:textSize="20dp"
+        />
+
+</LinearLayout>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_background_main_application_background"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_background_main_application_background"
+        tools:context=".NewTimeSheetEntryFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:width="120dp"
+                android:height="40dp"
+                android:paddingVertical="10dp"
+                android:text="New Task/Project"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="34sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/View_holder_color"
+                android:orientation="horizontal" />
+
+            <EditText
+                android:id="@+id/etvTaskName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:height="50dp"
+                android:background="@drawable/view_background_time_sheet_entry_textview"
+
+                android:hint="Task name..."
+                android:padding="10dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"
+                android:textSize="21dp" />
+
+            <LinearLayout
+                android:id="@+id/topLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginTop="10dp"
+
+                    android:fontFamily="@font/abeezee"
+                    android:text="Project name:"
+                    android:textColor="#ffffff"
+                    android:textSize="19dp" />
+
+                <Spinner
+                    android:id="@+id/categoryListFilter"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/view_background_spinner"
+
+                    android:textColorHint="#090A0B" />
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/clientLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="67dp"
+                    android:fontFamily="@font/abeezee"
+                    android:text="Client:"
+                    android:textColor="#ffffff"
+                    android:textSize="19dp" />
+
+                <Spinner
+                    android:id="@+id/clientName"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/view_background_spinner"
+
+                    android:textColorHint="#090A0B" />
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/etvTaskDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:height="150dp"
+                android:background="@drawable/view_background_time_sheet_entry_textview"
+
+                android:gravity="top"
+                android:hint="Description..."
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"
+                android:textSize="21dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginTop="10dp"
+
+                    android:text="Upload a photo:"
+                    android:textColor="#ffffff"
+                    android:textSize="19dp" />
+
+                <ImageView
+                    android:id="@+id/img_task_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_image"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/uploadPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginTop="10dp"
+                    android:text="date:"
+                    android:textColor="#ffffff"
+                    android:textSize="19dp" />
+
+                <EditText
+                    android:id="@+id/edtDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/view_background_time_sheet_entry_textview"
+                    android:ems="10"
+                    android:fontFamily="@font/andika"
+                    android:hint="dd/mm/yyyy"
+                    android:inputType="date"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="21dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/startDateLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginTop="10dp"
+                    android:text="Start time:"
+                    android:textColor="#ffffff"
+                    android:textSize="19dp" />
+
+                <EditText
+                    android:id="@+id/edtStartDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/view_background_time_sheet_entry_textview"
+                    android:ems="10"
+                    android:fontFamily="@font/andika"
+                    android:hint="dd/mm/yyyy"
+                    android:inputType="date"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="21dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/endDateLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginTop="10dp"
+                    android:text="End time:"
+                    android:textColor="#ffffff"
+                    android:textSize="19dp" />
+
+                <EditText
+                    android:id="@+id/edtEndDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/view_background_time_sheet_entry_textview"
+                    android:ems="10"
+                    android:fontFamily="@font/andika"
+                    android:hint="dd/mm/yyyy"
+                    android:inputType="date"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="21dp" />
+
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNewEntry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginTop="75dp"
+                android:background="@drawable/view_background_timesheet_entry_button"
+                android:gravity="center"
+                android:paddingHorizontal="120dp"
+                android:drawableStart="@drawable/ic_new_timesheet_entry"
+                android:backgroundTint="@null"
+                android:textSize="20dp"
+                android:textColor="@color/button_color"
+                android:text="Add Entry"
+                android:textAllCaps="false"
+                />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

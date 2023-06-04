@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="16"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    android:background="@drawable/layout_background_main_application_background"
+    tools:context=".TimeSheetEntriesFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:width="100dp"
+            android:height="40dp"
+            android:paddingVertical="10dp"
+            android:text="Tasks"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/View_holder_color"
+            android:orientation="horizontal"
+            />
+
+        <LinearLayout
+            android:id="@+id/topLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginVertical="7dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+
+                android:text="Sort by time period:"
+                android:textColor="#ffffff"
+                android:textSize="19dp" />
+
+            <EditText
+                android:id="@+id/categoryListFilter"
+                android:layout_width="215dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/view_background_textview"
+                android:drawableRight="@drawable/ic_calendar"
+                android:drawablePadding="20dp"
+                android:textColor="#BEBEBF"
+                android:textColorHint="#090A0B" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/View_holder_color"
+            android:orientation="horizontal"
+            />
+
+        <LinearLayout
+            android:id="@+id/midLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="7dp"
+
+            android:layout_gravity="start"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Max daily goal:"
+                android:textColor="#ffffff"
+                android:textSize="19dp" />
+
+            <ProgressBar
+                android:id="@+id/maxHoursPB"
+                android:layout_width="140dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/view_background_progress_bar"/>
+
+            <EditText
+                android:id="@+id/maxWorkHoursTarget"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/view_background_textview"
+                android:drawableRight="@drawable/ic_clock"
+
+                android:textSize="15dp"
+                android:hint="set hours"
+                android:textAlignment="center"
+                android:textColor="#BEBEBF"
+                android:inputType="number"
+                android:textColorHint="@color/hint_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lowerLinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginVertical="7dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Min daily goal:"
+                android:textColor="#ffffff"
+                android:textSize="19dp" />
+
+            <ProgressBar
+                android:id="@+id/minHoursPB"
+                android:layout_width="140dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/view_background_progress_bar"/>
+
+            <EditText
+                android:id="@+id/minHoursWorked"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/view_background_textview"
+                android:drawableRight="@drawable/ic_clock"
+                android:hint="set hours"
+                android:textColor="#BEBEBF"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:inputType="number"
+                android:textColorHint="@color/hint_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/View_holder_color"
+            android:orientation="horizontal"
+            />
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/task_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="16"
+        android:layout_marginVertical="10dp"
+        android:textAlignment="gravity"
+        app:backgroundTint="@null"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/task_viewholder_layout"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnNewEntry"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/view_background_timesheet_entry_button"
+        android:backgroundTint="@null"
+        android:drawableStart="@drawable/ic_new_timesheet_entry"
+        android:gravity="center"
+        android:paddingHorizontal="100dp"
+        android:text="Add New Task"
+        android:textAllCaps="false"
+        android:textColor="@color/button_color"
+        android:textSize="20dp" />
+
+</LinearLayout>
