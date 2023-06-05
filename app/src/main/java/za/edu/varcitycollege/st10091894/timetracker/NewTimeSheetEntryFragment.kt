@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 
 
 class NewTimeSheetEntryFragment : Fragment() {
@@ -28,10 +29,9 @@ class NewTimeSheetEntryFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_new_time_sheet_entry, container, false)
 
         // Find the addPhotoButton using its id
-        val addPhotoButton = view.findViewById<Button>(R.id.addPhotoButton)
-
+        val addPhoto = view.findViewById<ImageView>(R.id.img_task_image) //comment
         // Sets a click listener for the addPhotoButton
-        addPhotoButton.setOnClickListener {
+        addPhoto.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             startActivityForResult(intent, REQUEST_CODE_PHOTO)
