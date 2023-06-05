@@ -41,6 +41,8 @@ class NewTimeSheetEntryFragment : Fragment() {
     var _taskEndTimeHour : Int = LocalTime.now().hour
     var _taskEndTimeMin : Int = LocalTime.now().minute
 
+
+
     private val REQUEST_CODE_PHOTO = 1
     private var photoUri: Uri? = null
     private lateinit var addPhoto : ImageView
@@ -60,30 +62,28 @@ class NewTimeSheetEntryFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_new_time_sheet_entry, container, false)
 
-        // Find the addPhotoButton using its id
-        addPhoto = view.findViewById<ImageView>(R.id.img_task_image) //comment
-        // Sets a click listener for the addPhotoButton
-        //addPhoto.setOnClickListener {
-        //    val intent = Intent(Intent.ACTION_GET_CONTENT)
-        //    intent.type = "image/*"
-        //    startActivityForResult(intent, REQUEST_CODE_PHOTO)
-        //}
-
         //Camera functionality
+        addPhoto = view.findViewById<ImageView>(R.id.img_task_image)
+
         addPhoto.setOnClickListener{
-            checkCameraPermission()
+        checkCameraPermission()
         }
 
         //Now we extract the data from all the fields
-
-        val taskName: String = view.findViewById<EditText>(R.id.etvTaskName).text.toString()
+        val taskName = view.findViewById<EditText>(R.id.etvTaskName)
+        val taskClient = view.findViewById<Spinner>(R.id.clientName)
+        val taskStartTime = view.findViewById<EditText>(R.id.edtStartTime)
+        val taskEndTime = view.findViewById<EditText>(R.id.edtEndTime)
+        val taskDescription = view.findViewById<EditText>(R.id.etvTaskDescription)
         val taskDate = view.findViewById<EditText>(R.id.edtDate)
-            taskDate.setOnClickListener{
+
+        //DatePicker popup for task creation date field
+        taskDate.setOnClickListener{
             val datePicker =
-                MaterialDatePicker.Builder.datePicker()
-                    .setTitleText("Select date")
-                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                    .build()
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
             datePicker.show(parentFragmentManager, "datePicker")
             datePicker.addOnPositiveButtonClickListener {
                 // Respond to positive button click.
@@ -95,30 +95,60 @@ class NewTimeSheetEntryFragment : Fragment() {
                             "${LocalDate.ofEpochDay(_taskDate).month} " +
                             "${LocalDate.ofEpochDay(_taskDate).year}"
                 )
-
             }
         }
 
-        val taskStartTime = view.findViewById<EditText>(R.id.edtStartTime)
+
+        //timePicker popup for task start time field
          taskStartTime.setOnClickListener {
-            openStartTimePicker()
-            taskStartTime.setText("${_taskStartTimeHour}:${_taskStartTimeMin}")
+             val isSystem24Hour = is24HourFormat(requireContext())
+             val clockFormat = if(isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
+
+             val picker = MaterialTimePicker.Builder()
+                 .setTimeFormat(clockFormat)
+                 .setHour(12)
+                 .setMinute(0)
+                 .setTitleText("Select Start Time")
+                 .build()
+             picker.show(childFragmentManager, "TAG")
+
+             picker.addOnPositiveButtonClickListener{
+                 _taskStartTimeHour = picker.hour
+                 _taskStartTimeMin = picker.minute
+
+                 taskStartTime.setText("${_taskStartTimeHour}:${_taskStartTimeMin}")
+             }
         }
 
-        val taskEndTime = view.findViewById<EditText>(R.id.edtEndTime)
+
         taskEndTime.setOnClickListener {
-            openEndTimePicker()
-            taskEndTime.setText("${_taskEndTimeHour}:${_taskEndTimeMin}")
+            val isSystem24Hour = is24HourFormat(requireContext())
+            val clockFormat = if(isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
+
+            val picker = MaterialTimePicker.Builder()
+                .setTimeFormat(clockFormat)
+                .setHour(12)
+                .setMinute(0)
+                .setTitleText("Select Start Time")
+                .build()
+            picker.show(childFragmentManager, "TAG")
+
+            picker.addOnPositiveButtonClickListener{
+                _taskEndTimeHour = picker.hour
+                _taskEndTimeMin = picker.minute
+
+                taskEndTime.setText("${_taskEndTimeHour}:${_taskEndTimeMin}")
+            }
         }
 
         //spinner
-        val taskClient = view.findViewById<Spinner>(R.id.clientName)
 
-        val taskDescription = view.findViewById<EditText>(R.id.etvTaskDescription)
-        val _taskDescription = taskDescription.text.toString()
+
+
+
         view.findViewById<Button>(R.id.btnNewEntry).setOnClickListener {
             //create timeSheetEntries object
-            val timeSheetEntryModel = TimeSheetEntriesModel(taskName,
+            val timeSheetEntryModel = TimeSheetEntriesModel(taskName.text.toString(),
                 LocalDate.of(
                     LocalDate.ofEpochDay(_taskDate).year,
                     LocalDate.ofEpochDay(_taskDate).month,
@@ -126,7 +156,7 @@ class NewTimeSheetEntryFragment : Fragment() {
                 LocalTime.of(_taskStartTimeHour, _taskStartTimeMin),
                 LocalTime.of(_taskEndTimeHour, _taskEndTimeMin),
                 "null",
-                _taskDescription,
+                taskDescription.text.toString(),
                 photoUri
             )
 
@@ -143,41 +173,9 @@ class NewTimeSheetEntryFragment : Fragment() {
         return view
     }
 
-    private fun openStartTimePicker(){
-        val isSystem24Hour = is24HourFormat(requireContext())
-        val clockFormat = if(isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
 
-        val picker = MaterialTimePicker.Builder()
-            .setTimeFormat(clockFormat)
-            .setHour(12)
-            .setMinute(0)
-            .setTitleText("Select Start Time")
-            .build()
-        picker.show(childFragmentManager, "TAG")
 
-        picker.addOnPositiveButtonClickListener{
-            _taskStartTimeHour = picker.hour
-            _taskStartTimeMin = picker.minute
-        }
-    }
 
-    private fun openEndTimePicker(){
-        val isSystem24Hour = is24HourFormat(requireContext())
-        val clockFormat = if(isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
-
-        val picker = MaterialTimePicker.Builder()
-            .setTimeFormat(clockFormat)
-            .setHour(12)
-            .setMinute(0)
-            .setTitleText("Select Start Time")
-            .build()
-        picker.show(childFragmentManager, "TAG")
-
-        picker.addOnPositiveButtonClickListener{
-            _taskEndTimeHour = picker.hour
-            _taskEndTimeMin = picker.minute
-        }
-    }
     private fun checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
             != PackageManager.PERMISSION_GRANTED
@@ -206,6 +204,7 @@ class NewTimeSheetEntryFragment : Fragment() {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
             val imageUri = saveImageToInternalStorage(imageBitmap)
+            photoUri = imageUri
             addPhoto.setImageURI(imageUri)
         }
     }
@@ -242,13 +241,6 @@ class NewTimeSheetEntryFragment : Fragment() {
         return photoUri
     }
 
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_PHOTO && resultCode == Activity.RESULT_OK) {
-            photoUri = data?.data
-            // do something with the photoUri here
-        }
-    } */
+
 }
 

@@ -43,7 +43,7 @@ class TimeSheetEntriesFragment : Fragment() {
         //navigate to NewTimeSheetEntryFragment
         val btnNewEntry = view.findViewById<Button>(R.id.btnNewEntry)
         btnNewEntry.setOnClickListener {
-            //MainActivity().replaceFragment(NewTimeSheetEntryFragment())
+
             val newEntryFragment = NewTimeSheetEntryFragment()
             val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
             transaction.replace(R.id.frameLayout, newEntryFragment)
