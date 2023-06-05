@@ -123,6 +123,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:background="@drawable/view_background_spinner"
 
+                    android:dropDownWidth="match_parent"
                     android:textColorHint="#090A0B" />
             </LinearLayout>
 
@@ -207,7 +208,6 @@
                     android:ems="10"
                     android:fontFamily="@font/andika"
                     android:hint="dd/mm/yyyy"
-                    android:inputType="date"
                     android:padding="10dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/hint_color"
@@ -234,7 +234,7 @@
                     android:textSize="19dp" />
 
                 <EditText
-                    android:id="@+id/edtStartDate"
+                    android:id="@+id/edtStartTime"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
@@ -243,7 +243,7 @@
                     android:background="@drawable/view_background_time_sheet_entry_textview"
                     android:ems="10"
                     android:fontFamily="@font/andika"
-                    android:hint="dd/mm/yyyy"
+                    android:hint=""
                     android:inputType="date"
                     android:padding="10dp"
                     android:textColor="@color/white"
@@ -271,7 +271,7 @@
                     android:textSize="19dp" />
 
                 <EditText
-                    android:id="@+id/edtEndDate"
+                    android:id="@+id/edtEndTime"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="21dp"
@@ -280,7 +280,7 @@
                     android:background="@drawable/view_background_time_sheet_entry_textview"
                     android:ems="10"
                     android:fontFamily="@font/andika"
-                    android:hint="dd/mm/yyyy"
+                    android:hint=""
                     android:inputType="date"
                     android:padding="10dp"
                     android:textColor="@color/white"

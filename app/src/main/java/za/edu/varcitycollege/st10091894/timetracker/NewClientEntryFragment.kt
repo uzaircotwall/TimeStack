@@ -38,7 +38,8 @@ class NewClientEntryFragment : Fragment() {
         val clientAcquisitionDate = view.findViewById<EditText>(R.id.etvClientAqcuisitionDate)
 
         clientAcquisitionDate.setOnClickListener {
-            val datePicker = MaterialDatePicker.Builder.datePicker()
+            val datePicker =
+                MaterialDatePicker.Builder.datePicker()
                     .setTitleText("Select date")
                     .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                     .build()

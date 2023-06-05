@@ -19,6 +19,7 @@ class TimeSheetEntriesAdapter(val items: List<TimeSheetEntriesModel>) :
             itemBinding.tvTaskStartTime.text = "${taskModel.taskStartTime.hour}:${taskModel.taskStartTime.minute}"
             itemBinding.tvTaskEndTime.text = "${taskModel.taskEndTime.hour}:${taskModel.taskEndTime.minute}"
             itemBinding.tvTaskClient.text = taskModel.taskClient
+            itemBinding.imgTaskImage.setImageURI(taskModel.imageId?: null)
             itemBinding.tvTaskDescription.text = taskModel.taskDescription
 
         }
