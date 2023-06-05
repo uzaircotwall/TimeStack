@@ -173,6 +173,13 @@
                     android:src="@drawable/ic_image"
                     />
 
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/addPhotoButton"
+                    android:text="Add Photo"
+                    />
+
 
             </LinearLayout>
 

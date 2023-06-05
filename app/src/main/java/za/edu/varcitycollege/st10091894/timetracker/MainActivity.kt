@@ -1,5 +1,6 @@
 package za.edu.varcitycollege.st10091894.timetracker
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ class MainActivity : AppCompatActivity() {
     private val timeSheetEntryFragment = TimeSheetEntriesFragment()
     private val timeSheetCategoryFragment = TimeSheetClientFragment()
     private val timeSheetStatsFragment = TimeSheetStatsFragment()
+    private var photoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,9 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-    }
+
+        }
+
 
     //Method that switches out fragments on the main activity
     fun replaceFragment(fragment: Fragment){
