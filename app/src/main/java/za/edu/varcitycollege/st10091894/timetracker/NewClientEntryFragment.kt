@@ -1,6 +1,5 @@
 package za.edu.varcitycollege.st10091894.timetracker
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.FragmentTransaction
-import za.edu.varcitycollege.st10091894.timetracker.adapters.ClientAdapter
+import com.google.android.material.datepicker.MaterialDatePicker
 import za.edu.varcitycollege.st10091894.timetracker.adapters.ClientList
 import za.edu.varcitycollege.st10091894.timetracker.models.ClientModel
+import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.Month
-import java.util.Calendar
+import java.time.LocalTime
+import java.util.*
 
 
 class NewClientEntryFragment : Fragment() {
@@ -34,23 +34,29 @@ class NewClientEntryFragment : Fragment() {
 
         //show date date picker dialog when user clicks dateAcquisition editText view and display
         // whatever the user selected as a date
-        var _clientAcquisitionDate : LocalDate = LocalDate.now()
-
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-
+        var _clientAcquisitionDate : Long = LocalDate.now().toEpochDay()
         val clientAcquisitionDate = view.findViewById<EditText>(R.id.etvClientAqcuisitionDate)
 
-        /**clientAcquisitionDate.setOnClickListener {
-            val dpd = DatePickerDialog(NewClientEntryFragment().requireContext(), DatePickerDialog.OnDateSetListener{ view, mYear, mMonth, mDay ->
-                    _clientAcquisitionDate = LocalDate.of(mYear, mMonth, mDay)
-                    clientAcquisitionDate.setText("${_clientAcquisitionDate.dayOfMonth} ${_clientAcquisitionDate.month} ${_clientAcquisitionDate.year}")
-                }, year, month, day)
+        clientAcquisitionDate.setOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select date")
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build()
+                datePicker.show(parentFragmentManager, "datePicker")
+                datePicker.addOnPositiveButtonClickListener {
+                // Respond to positive button click.
 
-            dpd.show()
-        }**/
+                //convert unix epoch value from milliseconds to days
+                _clientAcquisitionDate = it / (24 * 60 * 60 * 1000)
+                clientAcquisitionDate.setText(
+                    "${LocalDate.ofEpochDay(_clientAcquisitionDate).dayOfMonth} " +
+                    "${LocalDate.ofEpochDay(_clientAcquisitionDate).month} " +
+                    "${LocalDate.ofEpochDay(_clientAcquisitionDate).year}"
+                )
+
+            }
+        }
+
 
         //extract data from the views
         val clientName = view.findViewById<EditText>(R.id.etvClientName).text
@@ -61,9 +67,16 @@ class NewClientEntryFragment : Fragment() {
         btnAddClient.setOnClickListener {
 
             //create client object
-            var client = ClientModel(clientName.toString(), LocalDate.of(_clientAcquisitionDate.year,
-                _clientAcquisitionDate.month, _clientAcquisitionDate.dayOfMonth )?: LocalDate.now(),
-                0, clientEmail.toString(), clientNotes.toString())
+            var client = ClientModel(
+                clientName.toString(),
+                LocalDate.of(
+                    LocalDate.ofEpochDay(_clientAcquisitionDate).year,
+                    LocalDate.ofEpochDay(_clientAcquisitionDate).month,
+                    LocalDate.ofEpochDay(_clientAcquisitionDate).dayOfMonth, )?: LocalDate.now(),
+                0,
+                clientEmail.toString(),
+                clientNotes.toString()
+            )
 
             //store client object in list
             ClientList.clientList.add(client)
