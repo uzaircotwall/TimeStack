@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavMenu)
 
-        //default fragment that shows up first when app is first openned
+        //default fragment that shows up first when app is first opened
         replaceFragment(timeSheetEntryFragment)
 
         //set bottom navigation view functionality

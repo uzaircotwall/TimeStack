@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import za.edu.varcitycollege.st10091894.timetracker.adapters.ClientAdapter
 import za.edu.varcitycollege.st10091894.timetracker.adapters.ClientList
@@ -30,6 +32,17 @@ class TimeSheetClientFragment : Fragment() {
         recyclerView = view.findViewById(R.id.client_item)
         adapter = ClientAdapter(ClientList.clientList)
         recyclerView.adapter = adapter
+
+        //Navigate to NewClientEntryFragment
+        val btnNewEntry = view.findViewById<Button>(R.id.btnNewClient)
+        btnNewEntry.setOnClickListener {
+            val newClientFragment = NewClientEntryFragment()
+            val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+            transaction.replace(R.id.frameLayout, newClientFragment)
+            transaction.commit()
+
+
+        }
 
         return view
     }
