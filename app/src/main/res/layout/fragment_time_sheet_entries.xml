@@ -70,6 +70,7 @@
                 android:background="@drawable/view_background_textview"
                 android:drawableRight="@drawable/ic_calendar"
                 android:drawablePadding="20dp"
+                android:editable="false"
                 android:textColor="#BEBEBF"
                 android:textColorHint="#090A0B" />
         </LinearLayout>

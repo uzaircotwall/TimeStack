@@ -24,7 +24,9 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import za.edu.varcitycollege.st10091894.timetracker.adapters.ClientList
 import za.edu.varcitycollege.st10091894.timetracker.adapters.TimeSheetEntriesList
+import za.edu.varcitycollege.st10091894.timetracker.models.ClientModel
 import za.edu.varcitycollege.st10091894.timetracker.models.TimeSheetEntriesModel
 import java.io.File
 import java.io.FileOutputStream
@@ -41,9 +43,8 @@ class NewTimeSheetEntryFragment : Fragment() {
     var _taskEndTimeHour : Int = LocalTime.now().hour
     var _taskEndTimeMin : Int = LocalTime.now().minute
 
+    var _taskClient : String? = null
 
-
-    private val REQUEST_CODE_PHOTO = 1
     private var photoUri: Uri? = null
     private lateinit var addPhoto : ImageView
     companion object{
@@ -71,12 +72,38 @@ class NewTimeSheetEntryFragment : Fragment() {
 
         //Now we extract the data from all the fields
         val taskName = view.findViewById<EditText>(R.id.etvTaskName)
-        val taskClient = view.findViewById<Spinner>(R.id.clientName)
+        val taskClientSpinner = view.findViewById<Spinner>(R.id.clientName)
         val taskStartTime = view.findViewById<EditText>(R.id.edtStartTime)
         val taskEndTime = view.findViewById<EditText>(R.id.edtEndTime)
         val taskDescription = view.findViewById<EditText>(R.id.etvTaskDescription)
         val taskDate = view.findViewById<EditText>(R.id.edtDate)
 
+        //spinner functionality allowing the user to choose a client
+
+        var clientList = mutableListOf<String>()
+        ClientList.clientList.forEach {
+
+            clientList.add(it.clientName)
+        }
+        clientList.add("Create New")
+        val arrayAdapter = ArrayAdapter<String>(requireContext(), R.layout.spinner_text_layout, clientList)
+        taskClientSpinner.adapter = arrayAdapter
+        taskClientSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                _taskClient = clientList[p2]
+                if (_taskClient.equals("Create New")){
+                    //navigate back to timeSheetEntries fragment list fragment
+                    val newClientFragment = NewClientEntryFragment()
+                    val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+                    transaction.replace(R.id.frameLayout, newClientFragment)
+                    transaction.commit()
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
         //DatePicker popup for task creation date field
         taskDate.setOnClickListener{
             val datePicker =
@@ -141,9 +168,6 @@ class NewTimeSheetEntryFragment : Fragment() {
             }
         }
 
-        //spinner
-
-
 
 
         view.findViewById<Button>(R.id.btnNewEntry).setOnClickListener {
@@ -155,7 +179,7 @@ class NewTimeSheetEntryFragment : Fragment() {
                     LocalDate.ofEpochDay(_taskDate).dayOfMonth, )?: LocalDate.now(),
                 LocalTime.of(_taskStartTimeHour, _taskStartTimeMin),
                 LocalTime.of(_taskEndTimeHour, _taskEndTimeMin),
-                "null",
+                _taskClient?: "null",
                 taskDescription.text.toString(),
                 photoUri
             )
