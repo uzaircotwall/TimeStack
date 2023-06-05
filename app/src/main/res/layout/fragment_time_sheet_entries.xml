@@ -62,7 +62,7 @@
                 android:textColor="#ffffff"
                 android:textSize="19dp" />
 
-            <EditText
+            r<TextView
                 android:id="@+id/categoryListFilter"
                 android:layout_width="215dp"
                 android:layout_height="40dp"
