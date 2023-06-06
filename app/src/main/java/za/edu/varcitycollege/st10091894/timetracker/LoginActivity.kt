@@ -21,12 +21,13 @@ class LoginActivity : AppCompatActivity() {
         edtPassword = findViewById(R.id.edtPassword)
         loginButton = findViewById(R.id.login)
 
-        val registerPage = findViewById<TextView>(R.id.goToRegister)
-        registerPage.setOnClickListener(){
-            val registerPage = Intent(this, RegisterActivity::class.java)
-            startActivity(registerPage)
+        val registerTextView = findViewById<TextView>(R.id.goToRegister)
+        registerTextView.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
             finish()
         }
+
         loginButton.setOnClickListener {
             val username = etvTaskName.text.toString()
             val password = edtPassword.text.toString()
