@@ -15,6 +15,7 @@ class RegisterActivity : AppCompatActivity() {
         loginPage.setOnClickListener {
             val loginPage = Intent(this, LoginActivity::class.java)
             startActivity(loginPage)
+        }
 
             val returnToLogin = findViewById<TextView>(R.id.goToLogin)
             returnToLogin.setOnClickListener {
@@ -23,4 +24,3 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
-}
