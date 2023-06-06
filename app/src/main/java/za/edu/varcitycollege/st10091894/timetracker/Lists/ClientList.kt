@@ -1,4 +1,4 @@
-package za.edu.varcitycollege.st10091894.timetracker.adapters
+package za.edu.varcitycollege.st10091894.timetracker.Lists
 
 import za.edu.varcitycollege.st10091894.timetracker.models.ClientModel
 import java.time.LocalDate

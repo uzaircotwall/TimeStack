@@ -9,12 +9,9 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.datepicker.MaterialDatePicker
-import za.edu.varcitycollege.st10091894.timetracker.adapters.ClientList
+import za.edu.varcitycollege.st10091894.timetracker.Lists.ClientList
 import za.edu.varcitycollege.st10091894.timetracker.models.ClientModel
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalTime
-import java.util.*
 
 
 class NewClientEntryFragment : Fragment() {
@@ -38,7 +35,8 @@ class NewClientEntryFragment : Fragment() {
         val clientAcquisitionDate = view.findViewById<EditText>(R.id.etvClientAqcuisitionDate)
 
         clientAcquisitionDate.setOnClickListener {
-            val datePicker = MaterialDatePicker.Builder.datePicker()
+            val datePicker =
+                MaterialDatePicker.Builder.datePicker()
                     .setTitleText("Select date")
                     .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                     .build()

@@ -6,9 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import za.edu.varcitycollege.st10091894.timetracker.databinding.TaskViewholderLayoutBinding
 import za.edu.varcitycollege.st10091894.timetracker.models.TimeSheetEntriesModel
 
-class TimeSheetEntriesAdapter(val items: List<TimeSheetEntriesModel>) :
+class TimeSheetEntriesAdapter(var items: MutableList<TimeSheetEntriesModel>) :
     RecyclerView.Adapter<TimeSheetEntriesAdapter.ViewHolder>(){
 
+    fun update(updatedList: MutableList<TimeSheetEntriesModel>){
+        items.clear()
+        items.addAll(updatedList)
+        notifyDataSetChanged()
+    }
     //make sure you have enabled viewBinding by setting viewBinding to true in the build.gradle file
     inner class ViewHolder(val itemBinding: TaskViewholderLayoutBinding): RecyclerView.ViewHolder(itemBinding.root){
 
@@ -19,6 +24,7 @@ class TimeSheetEntriesAdapter(val items: List<TimeSheetEntriesModel>) :
             itemBinding.tvTaskStartTime.text = "${taskModel.taskStartTime.hour}:${taskModel.taskStartTime.minute}"
             itemBinding.tvTaskEndTime.text = "${taskModel.taskEndTime.hour}:${taskModel.taskEndTime.minute}"
             itemBinding.tvTaskClient.text = taskModel.taskClient
+            itemBinding.imgTaskImage.setImageURI(taskModel.imageId?: null)
             itemBinding.tvTaskDescription.text = taskModel.taskDescription
 
         }

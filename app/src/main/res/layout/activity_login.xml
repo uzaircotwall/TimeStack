@@ -78,12 +78,12 @@
             android:text="Username"
             android:textColor="@color/button_color"
             android:textSize="19dp"
-            app:layout_constraintBottom_toTopOf="@+id/etvTaskName"
+            app:layout_constraintBottom_toTopOf="@+id/edtPersonEmail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <EditText
-            android:id="@+id/etvTaskName"
+            android:id="@+id/edtPersonEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -116,7 +116,7 @@
             android:textSize="19dp"
 
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etvTaskName" />
+            app:layout_constraintTop_toBottomOf="@+id/edtPersonEmail" />
 
         <EditText
             android:id="@+id/edtPassword"
