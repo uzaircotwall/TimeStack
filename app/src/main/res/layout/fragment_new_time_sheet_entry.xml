@@ -47,7 +47,7 @@
                 android:orientation="horizontal" />
 
             <EditText
-                android:id="@+id/etvTaskName"
+                android:id="@+id/edtPersonEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

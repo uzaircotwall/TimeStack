@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.format.DateFormat.is24HourFormat
@@ -17,16 +16,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import za.edu.varcitycollege.st10091894.timetracker.adapters.ClientList
-import za.edu.varcitycollege.st10091894.timetracker.adapters.TimeSheetEntriesList
-import za.edu.varcitycollege.st10091894.timetracker.models.ClientModel
+import za.edu.varcitycollege.st10091894.timetracker.Lists.ClientList
+import za.edu.varcitycollege.st10091894.timetracker.Lists.TimeSheetEntriesList
 import za.edu.varcitycollege.st10091894.timetracker.models.TimeSheetEntriesModel
 import java.io.File
 import java.io.FileOutputStream
@@ -71,7 +68,7 @@ class NewTimeSheetEntryFragment : Fragment() {
         }
 
         //Now we extract the data from all the fields
-        val taskName = view.findViewById<EditText>(R.id.etvTaskName)
+        val taskName = view.findViewById<EditText>(R.id.edtPersonEmail)
         val taskClientSpinner = view.findViewById<Spinner>(R.id.clientName)
         val taskStartTime = view.findViewById<EditText>(R.id.edtStartTime)
         val taskEndTime = view.findViewById<EditText>(R.id.edtEndTime)

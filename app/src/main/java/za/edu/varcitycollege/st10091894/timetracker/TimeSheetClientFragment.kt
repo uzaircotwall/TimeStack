@@ -9,7 +9,7 @@ import android.widget.Button
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import za.edu.varcitycollege.st10091894.timetracker.adapters.ClientAdapter
-import za.edu.varcitycollege.st10091894.timetracker.adapters.ClientList
+import za.edu.varcitycollege.st10091894.timetracker.Lists.ClientList
 
 
 class TimeSheetClientFragment : Fragment() {

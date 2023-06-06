@@ -62,15 +62,16 @@
                 android:textColor="#ffffff"
                 android:textSize="19dp" />
 
-            r<TextView
+            <EditText
                 android:id="@+id/categoryListFilter"
-                android:layout_width="215dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:minWidth="215dp"
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/view_background_textview"
                 android:drawableRight="@drawable/ic_calendar"
                 android:drawablePadding="20dp"
-                android:editable="false"
+                android:paddingLeft="20dp"
                 android:textColor="#BEBEBF"
                 android:textColorHint="#090A0B" />
         </LinearLayout>
@@ -120,7 +121,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/view_background_textview"
                 android:drawableRight="@drawable/ic_clock"
-
+                android:paddingLeft="5dp"
                 android:textSize="15dp"
                 android:hint="set hours"
                 android:textAlignment="center"
@@ -165,6 +166,7 @@
                 android:drawableRight="@drawable/ic_clock"
                 android:hint="set hours"
                 android:textColor="#BEBEBF"
+                android:paddingLeft="5dp"
                 android:textSize="15dp"
                 android:textAlignment="center"
                 android:inputType="number"

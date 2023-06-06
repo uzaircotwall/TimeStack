@@ -10,10 +10,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.datepicker.MaterialDatePicker
 import za.edu.varcitycollege.st10091894.timetracker.adapters.TimeSheetEntriesAdapter
-import za.edu.varcitycollege.st10091894.timetracker.adapters.TimeSheetEntriesList
+import za.edu.varcitycollege.st10091894.timetracker.Lists.TimeSheetEntriesList
+import za.edu.varcitycollege.st10091894.timetracker.models.TimeSheetEntriesModel
 import java.time.LocalDate
 
 
@@ -24,6 +27,8 @@ class TimeSheetEntriesFragment : Fragment() {
 
     var max_work_hours_target = 0
     var min_work_hours_target = 0
+
+    var dateFilter : Long = LocalDate.now().toEpochDay()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,15 +56,81 @@ class TimeSheetEntriesFragment : Fragment() {
 
 
         }
-
         val edtDateFilter = view.findViewById<EditText>(R.id.categoryListFilter)
-        edtDateFilter.setOnClickListener{
-            //showDatePicker()
-        }
         //bind recyclerview
+        var updatedTimeSheetsList: MutableList<TimeSheetEntriesModel> = mutableListOf()
+        if (edtDateFilter.text.isEmpty()){
+            updatedTimeSheetsList = TimeSheetEntriesList.entryList
+        }
         recyclerView = view.findViewById(R.id.task_item)
-        adapter = TimeSheetEntriesAdapter(TimeSheetEntriesList.entryList)
+        adapter = TimeSheetEntriesAdapter(updatedTimeSheetsList)
         recyclerView.adapter = adapter
+
+        //update recycler view after user enters a flter date
+
+        edtDateFilter.setOnClickListener{
+            val datePicker =
+                MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select date")
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build()
+            datePicker.show(parentFragmentManager, "datePicker")
+            datePicker.addOnPositiveButtonClickListener {
+                // Respond to positive button click.
+
+                //convert unix epoch value from milliseconds to days
+                dateFilter = it / (24 * 60 * 60 * 1000)
+                edtDateFilter.setText(
+                    "${LocalDate.ofEpochDay(dateFilter).dayOfMonth} " +
+                            "${LocalDate.ofEpochDay(dateFilter).month} " +
+                            "${LocalDate.ofEpochDay(dateFilter).year}"
+                )
+
+            }
+
+        }
+
+        edtDateFilter.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+
+                if (edtDateFilter.text.isEmpty()){
+                    updatedTimeSheetsList = TimeSheetEntriesList.entryList
+                }else {
+                    TimeSheetEntriesList.entryList.forEach {
+
+                        if (it.taskCreationDate.isAfter(LocalDate.ofEpochDay(dateFilter) )== true) {
+                            updatedTimeSheetsList.add(it)
+                        }
+                    }
+                    if (updatedTimeSheetsList.isEmpty()) {
+                        Toast.makeText(
+                            requireContext(), "There are no entries after" +
+                                    "${LocalDate.ofEpochDay(dateFilter).dayOfMonth} " +
+                                    "${LocalDate.ofEpochDay(dateFilter).month} " +
+                                    "${LocalDate.ofEpochDay(dateFilter).year}", Toast.LENGTH_LONG
+                        ).show()
+                        updatedTimeSheetsList = TimeSheetEntriesList.entryList
+                    }
+                }
+                adapter.update(updatedTimeSheetsList)
+
+
+
+
+            }
+        })
+
+
+
 
         //progress bar (gamification feature) section
         //set the maximum work hours target goal progress bar
