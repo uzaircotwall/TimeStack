@@ -10,7 +10,7 @@ class TimeSheetEntriesAdapter(var items: MutableList<TimeSheetEntriesModel>) :
     RecyclerView.Adapter<TimeSheetEntriesAdapter.ViewHolder>(){
 
     fun update(updatedList: MutableList<TimeSheetEntriesModel>){
-        items.clear()
+        items = mutableListOf()
         items.addAll(updatedList)
         notifyDataSetChanged()
     }

@@ -24,6 +24,7 @@ class TimeSheetEntriesFragment : Fragment() {
 
     private lateinit var adapter: TimeSheetEntriesAdapter
     private lateinit var recyclerView: RecyclerView
+    lateinit var updatedTimeSheetsList: MutableList<TimeSheetEntriesModel>
 
     var max_work_hours_target = 0
     var min_work_hours_target = 0
@@ -57,14 +58,17 @@ class TimeSheetEntriesFragment : Fragment() {
 
         }
         val edtDateFilter = view.findViewById<EditText>(R.id.categoryListFilter)
-        //bind recyclerview
-        var updatedTimeSheetsList: MutableList<TimeSheetEntriesModel> = mutableListOf()
+
+
         if (edtDateFilter.text.isEmpty()){
             updatedTimeSheetsList = TimeSheetEntriesList.entryList
         }
+
+        //bind recyclerview
         recyclerView = view.findViewById(R.id.task_item)
         adapter = TimeSheetEntriesAdapter(updatedTimeSheetsList)
         recyclerView.adapter = adapter
+
 
         //update recycler view after user enters a flter date
 
@@ -100,32 +104,7 @@ class TimeSheetEntriesFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
-
-                if (edtDateFilter.text.isEmpty()){
-                    updatedTimeSheetsList = TimeSheetEntriesList.entryList
-                }else {
-                    TimeSheetEntriesList.entryList.forEach {
-
-                        if (it.taskCreationDate.isAfter(LocalDate.ofEpochDay(dateFilter) )== true) {
-                            updatedTimeSheetsList.add(it)
-                        }
-                    }
-                    if (updatedTimeSheetsList.isEmpty()) {
-                        Toast.makeText(
-                            requireContext(), "There are no entries after" +
-                                    "${LocalDate.ofEpochDay(dateFilter).dayOfMonth} " +
-                                    "${LocalDate.ofEpochDay(dateFilter).month} " +
-                                    "${LocalDate.ofEpochDay(dateFilter).year}", Toast.LENGTH_LONG
-                        ).show()
-                        updatedTimeSheetsList = TimeSheetEntriesList.entryList
-                    }
-                }
-                adapter.update(updatedTimeSheetsList)
-
-
-
-
+                updateRecyclerView()
             }
         })
 
@@ -201,6 +180,26 @@ class TimeSheetEntriesFragment : Fragment() {
             }
         }
         return totalHoursWorked
+    }
+    fun updateRecyclerView(){
+        updatedTimeSheetsList.clear()
+        TimeSheetEntriesList.entryList.forEach {
+
+            if (it.taskCreationDate.isAfter(LocalDate.ofEpochDay(dateFilter) )) {
+                updatedTimeSheetsList.add(it)
+            }
+        }
+        if (updatedTimeSheetsList.isEmpty()) {
+            Toast.makeText(
+                requireContext(), "There are no entries after" +
+                        "${LocalDate.ofEpochDay(dateFilter).dayOfMonth} " +
+                        "${LocalDate.ofEpochDay(dateFilter).month} " +
+                        "${LocalDate.ofEpochDay(dateFilter).year}", Toast.LENGTH_LONG
+            ).show()
+
+            updatedTimeSheetsList = TimeSheetEntriesList.entryList
+        }
+        adapter.update(updatedTimeSheetsList)
     }
 
 
