@@ -20,6 +20,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        //comment
 
          val name = findViewById<EditText>(R.id.edtPersonName)
          val surname = findViewById<EditText>(R.id.edtPersonName)
