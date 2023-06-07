@@ -78,7 +78,7 @@ class RegisterActivity : AppCompatActivity() {
         }
         if (confirmPassword.text.toString() != password.text.toString()){
             inputValid = false
-            confirmPassword.error = "passwords don not match"
+            confirmPassword.error = "passwords do not match"
         }
 
         return inputValid

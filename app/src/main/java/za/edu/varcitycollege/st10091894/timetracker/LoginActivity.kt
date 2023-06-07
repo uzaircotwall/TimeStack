@@ -34,10 +34,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener {
-            val username = etvTaskName.text.toString()
-            val password = edtPassword.text.toString()
+            val username = etvTaskName
+            val password = edtPassword
 
-            if (isValidCredentials(etvTaskName, edtPassword)) {
+            if (isValidCredentials(username, password)) {
                 // Valid credentials, perform login logic here
                 val goToMainActivity = Intent(this, MainActivity::class.java)
                 startActivity(goToMainActivity)
