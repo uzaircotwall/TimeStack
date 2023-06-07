@@ -24,12 +24,12 @@ class TimeSheetEntriesFragment : Fragment() {
 
     private lateinit var adapter: TimeSheetEntriesAdapter
     private lateinit var recyclerView: RecyclerView
-    lateinit var updatedTimeSheetsList: MutableList<TimeSheetEntriesModel>
+    private lateinit var updatedTimeSheetsList: MutableList<TimeSheetEntriesModel>
+    private var dateFilter : Long = LocalDate.now().toEpochDay().minus(1670288400)
+    private var max_work_hours_target = 0
+    private var min_work_hours_target = 0
 
-    var max_work_hours_target = 0
-    var min_work_hours_target = 0
 
-    var dateFilter : Long = LocalDate.now().toEpochDay()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +49,7 @@ class TimeSheetEntriesFragment : Fragment() {
         //navigate to NewTimeSheetEntryFragment
         val btnNewEntry = view.findViewById<Button>(R.id.btnNewEntry)
         btnNewEntry.setOnClickListener {
+            //validating the input
 
             val newEntryFragment = NewTimeSheetEntryFragment()
             val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
@@ -59,18 +60,17 @@ class TimeSheetEntriesFragment : Fragment() {
         }
         val edtDateFilter = view.findViewById<EditText>(R.id.categoryListFilter)
 
-
-        if (edtDateFilter.text.isEmpty()){
-            updatedTimeSheetsList = TimeSheetEntriesList.entryList
-        }
-
+        //initialize list timesheetEntries list
+        updatedTimeSheetsList = ArrayList()
+        dateFilter = 0
+        updateRecyclerView()
         //bind recyclerview
         recyclerView = view.findViewById(R.id.task_item)
-        adapter = TimeSheetEntriesAdapter(updatedTimeSheetsList)
+        adapter = TimeSheetEntriesAdapter(TimeSheetEntriesList.entryList)
         recyclerView.adapter = adapter
 
 
-        //update recycler view after user enters a flter date
+        //update recycler view after user enters a filter date
 
         edtDateFilter.setOnClickListener{
             val datePicker =
@@ -94,7 +94,7 @@ class TimeSheetEntriesFragment : Fragment() {
 
         }
 
-        edtDateFilter.addTextChangedListener(object: TextWatcher{
+        /**edtDateFilter.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -106,7 +106,7 @@ class TimeSheetEntriesFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
                 updateRecyclerView()
             }
-        })
+        }) **/
 
 
 
@@ -168,6 +168,9 @@ class TimeSheetEntriesFragment : Fragment() {
 
         //set event for congratulating user when progress bar hits 100%
 
+
+
+
         return view
     }
 
@@ -184,9 +187,10 @@ class TimeSheetEntriesFragment : Fragment() {
     fun updateRecyclerView(){
         updatedTimeSheetsList.clear()
         TimeSheetEntriesList.entryList.forEach {
-
-            if (it.taskCreationDate.isAfter(LocalDate.ofEpochDay(dateFilter) )) {
-                updatedTimeSheetsList.add(it)
+            if (dateFilter <= 1 ){} else {
+                if (it.taskCreationDate.isAfter(LocalDate.ofEpochDay(dateFilter))) {
+                    updatedTimeSheetsList.add(it)
+                }
             }
         }
         if (updatedTimeSheetsList.isEmpty()) {
@@ -195,11 +199,11 @@ class TimeSheetEntriesFragment : Fragment() {
                         "${LocalDate.ofEpochDay(dateFilter).dayOfMonth} " +
                         "${LocalDate.ofEpochDay(dateFilter).month} " +
                         "${LocalDate.ofEpochDay(dateFilter).year}", Toast.LENGTH_LONG
+
             ).show()
 
-            updatedTimeSheetsList = TimeSheetEntriesList.entryList
         }
-        adapter.update(updatedTimeSheetsList)
+        if (::adapter.isInitialized) adapter.update(updatedTimeSheetsList)
     }
 
 

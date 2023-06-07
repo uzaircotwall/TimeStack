@@ -24,6 +24,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import za.edu.varcitycollege.st10091894.timetracker.Lists.ClientList
 import za.edu.varcitycollege.st10091894.timetracker.Lists.TimeSheetEntriesList
+import za.edu.varcitycollege.st10091894.timetracker.Lists.UsersList
 import za.edu.varcitycollege.st10091894.timetracker.models.TimeSheetEntriesModel
 import java.io.File
 import java.io.FileOutputStream
@@ -168,27 +169,33 @@ class NewTimeSheetEntryFragment : Fragment() {
 
 
         view.findViewById<Button>(R.id.btnNewEntry).setOnClickListener {
-            //create timeSheetEntries object
-            val timeSheetEntryModel = TimeSheetEntriesModel(taskName.text.toString(),
-                LocalDate.of(
-                    LocalDate.ofEpochDay(_taskDate).year,
-                    LocalDate.ofEpochDay(_taskDate).month,
-                    LocalDate.ofEpochDay(_taskDate).dayOfMonth, )?: LocalDate.now(),
-                LocalTime.of(_taskStartTimeHour, _taskStartTimeMin),
-                LocalTime.of(_taskEndTimeHour, _taskEndTimeMin),
-                _taskClient?: "null",
-                taskDescription.text.toString(),
-                photoUri
-            )
+            if (isInputValid(taskName = taskName, creationDate = taskDate, startTime = taskStartTime, endTime = taskEndTime)){
+                //create timeSheetEntries object
+                val timeSheetEntryModel = TimeSheetEntriesModel(taskName.text.toString(),
+                    LocalDate.of(
+                        LocalDate.ofEpochDay(_taskDate).year,
+                        LocalDate.ofEpochDay(_taskDate).month,
+                        LocalDate.ofEpochDay(_taskDate).dayOfMonth, )?: LocalDate.now(),
+                    LocalTime.of(_taskStartTimeHour, _taskStartTimeMin),
+                    LocalTime.of(_taskEndTimeHour, _taskEndTimeMin),
+                    _taskClient?: "null",
+                    taskDescription.text.toString(),
+                    photoUri)
+                //save the entry
+                TimeSheetEntriesList.entryList.add(timeSheetEntryModel)
 
-            //save the entry
-            TimeSheetEntriesList.entryList.add(timeSheetEntryModel)
+                //navigate back to timeSheetEntries fragment list fragment
+                val timeSheetEntries = TimeSheetEntriesFragment()
+                val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+                transaction.replace(R.id.frameLayout, timeSheetEntries)
+                transaction.commit()
+            }
 
-            //navigate back to timeSheetEntries fragment list fragment
-            val timeSheetEntries = TimeSheetEntriesFragment()
-            val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-            transaction.replace(R.id.frameLayout, timeSheetEntries)
-            transaction.commit()
+
+
+
+
+
         }
 
         return view
@@ -261,7 +268,28 @@ class NewTimeSheetEntryFragment : Fragment() {
 
         return photoUri
     }
+    private fun isInputValid(taskName: EditText, creationDate: EditText, startTime: EditText, endTime: EditText): Boolean {
+        // Implement your own validation logic here
+        var isValid = true
+        if (taskName.text.toString().isEmpty()) {
+            isValid = false
+            taskName.error = "please enter a task name"
+        }
+        if (creationDate.text.toString().isEmpty()) {
+            isValid = false
+            creationDate.error = "please enter a date"
+        }
+        if (startTime.text.toString().isEmpty()) {
+            isValid = false
+            startTime.error = "please enter a start time"
+        }
+        if (endTime.text.toString().isEmpty()) {
+            isValid = false
+            endTime.error = "please enter a start time"
+        }
 
+        return isValid
+    }
 
 }
 

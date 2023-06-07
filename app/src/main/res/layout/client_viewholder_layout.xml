@@ -85,7 +85,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/view_background_time_sheet_entry_textview"
                     android:paddingLeft="6dp"
-                    android:text="Billable hours: "
+                    android:text="Total Billable Hours: "
                     android:textColor="@color/white"
                     android:textSize="18dp" />
 

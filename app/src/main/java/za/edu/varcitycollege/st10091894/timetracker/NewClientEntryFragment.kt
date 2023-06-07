@@ -57,39 +57,55 @@ class NewClientEntryFragment : Fragment() {
 
 
         //extract data from the views
-        val clientName = view.findViewById<EditText>(R.id.etvClientName).text
-        val clientEmail = view.findViewById<EditText>(R.id.etvClientEmail).text
-        val clientNotes = view.findViewById<EditText>(R.id.etvClientNotes).text
+        val clientName = view.findViewById<EditText>(R.id.etvClientName)
+        val clientEmail = view.findViewById<EditText>(R.id.etvClientEmail)
+        val clientNotes = view.findViewById<EditText>(R.id.etvClientNotes)
         val btnAddClient = view.findViewById<Button>(R.id.btnAddClient)
 
         btnAddClient.setOnClickListener {
+            if (isInputValid(clientName = clientName, acquisitionDate = clientAcquisitionDate)) {
 
-            //create client object
-            var client = ClientModel(
-                clientName.toString(),
-                LocalDate.of(
-                    LocalDate.ofEpochDay(_clientAcquisitionDate).year,
-                    LocalDate.ofEpochDay(_clientAcquisitionDate).month,
-                    LocalDate.ofEpochDay(_clientAcquisitionDate).dayOfMonth, )?: LocalDate.now(),
-                0,
-                clientEmail.toString(),
-                clientNotes.toString()
-            )
+                //create client object
+                var client = ClientModel(
+                    clientName.text.toString(),
+                    LocalDate.of(
+                        LocalDate.ofEpochDay(_clientAcquisitionDate).year,
+                        LocalDate.ofEpochDay(_clientAcquisitionDate).month,
+                        LocalDate.ofEpochDay(_clientAcquisitionDate).dayOfMonth,
+                    ) ?: LocalDate.now(),
+                    0,
+                    clientEmail.text.toString(),
+                    clientNotes.text.toString()
+                )
+                //store client object in list
+                ClientList.clientList.add(client)
 
-            //store client object in list
-            ClientList.clientList.add(client)
-
-            //navigate back to client list fragment
-            val clientFragment = TimeSheetClientFragment()
-            val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-            transaction.replace(R.id.frameLayout, clientFragment)
-            transaction.commit()
+                //navigate back to client list fragment
+                val clientFragment = TimeSheetClientFragment()
+                val transaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+                transaction.replace(R.id.frameLayout, clientFragment)
+                transaction.commit()
+            }
 
 
         }
 
         return view
     }
+    private fun isInputValid(clientName: EditText, acquisitionDate: EditText): Boolean {
+        // Implement your own validation logic here
+        var isValid = true
+        if (clientName.text.toString().isEmpty()) {
+            isValid = false
+            clientName.error = "please enter the clients name"
+        }
+        if (clientName.text.toString().isEmpty()) {
+            isValid = false
+            clientName.error = "please enter a date"
+        }
 
+
+        return isValid
+    }
 
 }
