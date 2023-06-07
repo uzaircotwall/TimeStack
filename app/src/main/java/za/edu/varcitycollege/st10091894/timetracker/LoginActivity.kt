@@ -37,13 +37,13 @@ class LoginActivity : AppCompatActivity() {
             val username = etvTaskName.text.toString()
             val password = edtPassword.text.toString()
 
-            //if (isValidCredentials(etvTaskName, edtPassword)) {
+            if (isValidCredentials(etvTaskName, edtPassword)) {
                 // Valid credentials, perform login logic here
                 val goToMainActivity = Intent(this, MainActivity::class.java)
                 startActivity(goToMainActivity)
                 finish()
 
-           // }
+            }
         }
     }
 

@@ -24,7 +24,7 @@ class TimeSheetEntriesFragment : Fragment() {
 
     private lateinit var adapter: TimeSheetEntriesAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var updatedTimeSheetsList: MutableList<TimeSheetEntriesModel>
+    var updatedTimeSheetsList: MutableList<TimeSheetEntriesModel>? = mutableListOf()
     private var dateFilter : Long = LocalDate.now().toEpochDay().minus(1670288400)
     private var max_work_hours_target = 0
     private var min_work_hours_target = 0
@@ -61,10 +61,11 @@ class TimeSheetEntriesFragment : Fragment() {
         val edtDateFilter = view.findViewById<EditText>(R.id.categoryListFilter)
 
         //initialize list timesheetEntries list
-        updatedTimeSheetsList = ArrayList()
-        dateFilter = 0
-        updateRecyclerView()
+        //updatedTimeSheetsList = ArrayList()
+        //dateFilter = 0
+        //updateRecyclerView()
         //bind recyclerview
+        updatedTimeSheetsList = TimeSheetEntriesList.entryList
         recyclerView = view.findViewById(R.id.task_item)
         adapter = TimeSheetEntriesAdapter(TimeSheetEntriesList.entryList)
         recyclerView.adapter = adapter
@@ -86,7 +87,7 @@ class TimeSheetEntriesFragment : Fragment() {
                 dateFilter = it / (24 * 60 * 60 * 1000)
                 edtDateFilter.setText(
                     "${LocalDate.ofEpochDay(dateFilter).dayOfMonth} " +
-                            "${LocalDate.ofEpochDay(dateFilter).month} " +
+                          "${LocalDate.ofEpochDay(dateFilter).month} " +
                             "${LocalDate.ofEpochDay(dateFilter).year}"
                 )
 
@@ -94,7 +95,7 @@ class TimeSheetEntriesFragment : Fragment() {
 
         }
 
-        /**edtDateFilter.addTextChangedListener(object: TextWatcher{
+        edtDateFilter.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -104,9 +105,29 @@ class TimeSheetEntriesFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                updateRecyclerView()
+                /**var resultNotFound = true
+                TimeSheetEntriesList.entryList.forEach {
+                    if (dateFilter <= 1 ){} else {
+
+                        if (it.taskCreationDate.isAfter(LocalDate.ofEpochDay(dateFilter))) {
+                            updatedTimeSheetsList?.add(it)
+                            resultNotFound = false
+                        }
+
+                    }
+                }
+                    if (resultNotFound) {
+                        Toast.makeText(
+                            requireContext(), "There are no entries after" +
+                                    "${LocalDate.ofEpochDay(dateFilter).dayOfMonth} " +
+                                    "${LocalDate.ofEpochDay(dateFilter).month} " +
+                                    "${LocalDate.ofEpochDay(dateFilter).year}", Toast.LENGTH_LONG
+
+                        ).show()
+                    } **/
+
             }
-        }) **/
+        })
 
 
 
@@ -184,27 +205,7 @@ class TimeSheetEntriesFragment : Fragment() {
         }
         return totalHoursWorked
     }
-    fun updateRecyclerView(){
-        updatedTimeSheetsList.clear()
-        TimeSheetEntriesList.entryList.forEach {
-            if (dateFilter <= 1 ){} else {
-                if (it.taskCreationDate.isAfter(LocalDate.ofEpochDay(dateFilter))) {
-                    updatedTimeSheetsList.add(it)
-                }
-            }
-        }
-        if (updatedTimeSheetsList.isEmpty()) {
-            Toast.makeText(
-                requireContext(), "There are no entries after" +
-                        "${LocalDate.ofEpochDay(dateFilter).dayOfMonth} " +
-                        "${LocalDate.ofEpochDay(dateFilter).month} " +
-                        "${LocalDate.ofEpochDay(dateFilter).year}", Toast.LENGTH_LONG
 
-            ).show()
-
-        }
-        if (::adapter.isInitialized) adapter.update(updatedTimeSheetsList)
-    }
 
 
 }

@@ -10,12 +10,12 @@ import za.edu.varcitycollege.st10091894.timetracker.models.TimeSheetEntriesModel
 class TimeSheetEntriesAdapter(var items: MutableList<TimeSheetEntriesModel>) :
     RecyclerView.Adapter<TimeSheetEntriesAdapter.ViewHolder>(){
 
-    fun update(updatedList: MutableList<TimeSheetEntriesModel>){
+    /**fun update(updatedList: MutableList<TimeSheetEntriesModel>){
         items = mutableListOf()
         if (updatedList.size == 0) items.addAll(TimeSheetEntriesList.entryList) else items.addAll(updatedList)
 
         notifyDataSetChanged()
-    }
+    } **/
     //make sure you have enabled viewBinding by setting viewBinding to true in the build.gradle file
     inner class ViewHolder(val itemBinding: TaskViewholderLayoutBinding): RecyclerView.ViewHolder(itemBinding.root){
 
